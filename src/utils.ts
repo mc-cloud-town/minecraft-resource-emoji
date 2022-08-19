@@ -5,3 +5,13 @@ export const splitString = (str: string, sep: number) => {
 
   return arr;
 };
+
+export const splitStringList = (list: string[], sep: number) => {
+  const arr: string[] = [];
+
+  for (let i = 0; i < list.length; i += sep) {
+    arr.push(list.slice(i, i + sep).join(""));
+  }
+
+  return arr;
+};

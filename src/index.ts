@@ -3,11 +3,16 @@ import { basename, extname } from "path";
 
 import glob from "glob";
 import twemoji from "twemoji";
+import GraphemeSplitter from "grapheme-splitter";
 import { createCanvas, loadImage } from "canvas";
 
-import { splitString } from "./utils";
+import { splitStringList } from "./utils";
 
-const canvas = createCanvas(320, 320);
+const WIDTH = 1;
+const HEIGHT = 50;
+
+const splitter = new GraphemeSplitter();
+const canvas = createCanvas(32 * WIDTH, 32 * HEIGHT);
 const ctx = canvas.getContext("2d");
 const data: {
   // https://minecraft.fandom.com/zh/wiki/%E8%B5%84%E6%BA%90%E5%8C%85#:~:text=%E6%A0%B9%E6%A8%99%E7%B1%A4-,providers,-%3A%20%E6%8F%90%E4%BE%9B%E5%8A%A0%E5%85%A5%E8%A9%B2
@@ -25,7 +30,7 @@ glob("assets/32x32/*.png", async (_err, files) => {
   let chars = "";
 
   for (const file of files) {
-    let [h, x] = (i++ / 10)
+    let [h, x] = (i++ / WIDTH)
       .toString()
       .split(".")
       .map((_) => +_);
@@ -34,7 +39,7 @@ glob("assets/32x32/*.png", async (_err, files) => {
     const fileName = basename(file, extname(file));
     const codePoint = twemoji.convert.fromCodePoint(fileName);
 
-    if (i > 100) {
+    if (i > HEIGHT) {
       const buffer = canvas.toBuffer("image/png");
 
       fs.writeFileSync(
@@ -47,7 +52,7 @@ glob("assets/32x32/*.png", async (_err, files) => {
         file: `minecraft:font/${fileName}.png`,
         ascent: 8,
         height: 8,
-        chars: splitString(chars, 10),
+        chars: splitStringList(splitter.splitGraphemes(chars), WIDTH),
       });
 
       chars = "";
