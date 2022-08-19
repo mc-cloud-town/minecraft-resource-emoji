@@ -27,7 +27,7 @@ const data: {
 
 glob("assets/32x32/*.png", async (_err, files) => {
   let i = 0;
-  let chars = "";
+  let chars: string[] = [];
 
   for (const file of files) {
     let [h, x] = (i++ / WIDTH)
@@ -52,17 +52,18 @@ glob("assets/32x32/*.png", async (_err, files) => {
         file: `minecraft:font/${fileName}.png`,
         ascent: 8,
         height: 8,
-        chars: splitStringList(splitter.splitGraphemes(chars), WIDTH),
+        chars,
+        // splitStringList(splitter.splitGraphemes(chars), WIDTH),
       });
 
-      chars = "";
+      chars = [];
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       i = 0;
     }
 
     await loadImage(file).then((image) => {
       ctx.drawImage(image, 32 * x, 32 * h, 32, 32);
-      chars += codePoint;
+      chars.push(codePoint);
     });
   }
 
