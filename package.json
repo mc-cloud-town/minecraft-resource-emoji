@@ -8,7 +8,6 @@
   "dependencies": {
     "canvas": "^2.9.3",
     "glob": "^8.0.3",
-    "grapheme-splitter": "^1.0.4",
     "sharp": "^0.30.7",
     "twemoji": "^14.0.2"
   },

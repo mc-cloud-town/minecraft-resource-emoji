@@ -3,15 +3,11 @@ import { basename, extname } from "path";
 
 import glob from "glob";
 import twemoji from "twemoji";
-import GraphemeSplitter from "grapheme-splitter";
 import { createCanvas, loadImage } from "canvas";
 
-import { splitStringList } from "./utils";
-
 const WIDTH = 1;
-const HEIGHT = 50;
+const HEIGHT = 100;
 
-const splitter = new GraphemeSplitter();
 const canvas = createCanvas(32 * WIDTH, 32 * HEIGHT);
 const ctx = canvas.getContext("2d");
 const data: {
@@ -39,7 +35,14 @@ glob("assets/32x32/*.png", async (_err, files) => {
     const fileName = basename(file, extname(file));
     const codePoint = twemoji.convert.fromCodePoint(fileName);
 
-    if (i > HEIGHT) {
+    await loadImage(file).then((image) => {
+      ctx.drawImage(image, 32 * x, 32 * h, 32, 32);
+
+      chars.push(codePoint);
+      console.log(codePoint);
+    });
+
+    if (i >= HEIGHT) {
       const buffer = canvas.toBuffer("image/png");
 
       fs.writeFileSync(
@@ -53,18 +56,13 @@ glob("assets/32x32/*.png", async (_err, files) => {
         ascent: 8,
         height: 8,
         chars,
-        // splitStringList(splitter.splitGraphemes(chars), WIDTH),
       });
 
+      console.log(chars);
       chars = [];
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       i = 0;
     }
-
-    await loadImage(file).then((image) => {
-      ctx.drawImage(image, 32 * x, 32 * h, 32, 32);
-      chars.push(codePoint);
-    });
   }
 
   fs.writeFileSync(
