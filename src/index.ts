@@ -21,28 +21,53 @@ const data: {
   }[];
 } = { providers: [] };
 
-glob("assets/32x32/*.png", async (_err, files) => {
+const asyncFiles = (path: string): Promise<string[]> => {
+  return new Promise((resolve, reject) => {
+    glob(path, async (err, files) => {
+      if (err) return reject(err);
+      resolve(files);
+    });
+  });
+};
+
+(async () => {
+  const files = await asyncFiles("assets/32x32/*.png");
+  files.push(...(await asyncFiles("assets/discordEmojis-32x32/*.png")));
+
   let i = 0;
+  let counts = 0;
   let chars: string[] = [];
 
-  for (const file of files) {
+  for (const [index, file] of files.entries()) {
+    const fileName = basename(file, extname(file));
+
+    const emojiIndex = /emoji-(?<emojiIndex>[0-9]+)/.exec(fileName)?.groups
+      ?.emojiIndex;
+
+    if (fileName.includes("-") && !emojiIndex) continue;
+
+    const codePoint =
+      emojiIndex === void 0
+        ? // ? fileName.split("-").map(twemoji.convert.fromCodePoint).join("")
+          twemoji.convert.fromCodePoint(fileName)
+        : String.fromCharCode(
+            parseInt(`F${(+emojiIndex).toString(16).padStart(3, "0")}`, 16)
+          );
+
     let [h, x] = (i++ / WIDTH)
       .toString()
       .split(".")
       .map((_) => +_);
     x ??= 0;
 
-    const fileName = basename(file, extname(file));
-    const codePoint = twemoji.convert.fromCodePoint(fileName);
-
     await loadImage(file).then((image) => {
       ctx.drawImage(image, 32 * x, 32 * h, 32, 32);
 
       chars.push(codePoint);
-      console.log(codePoint);
+      console.log(fileName, codePoint);
     });
 
-    if (i >= HEIGHT) {
+    if (i >= WIDTH * HEIGHT || index + 1 >= files.length) {
       const buffer = canvas.toBuffer("image/png");
 
       fs.writeFileSync(
@@ -55,7 +80,10 @@ glob("assets/32x32/*.png", async (_err, files) => {
         file: `minecraft:font/${fileName}.png`,
         ascent: 8,
         height: 8,
-        chars,
+        chars: (() => {
+          while (chars.length < WIDTH * HEIGHT) chars.push("\u0000");
+          return chars;
+        })(),
       });
 
       console.log(chars);
@@ -63,6 +91,7 @@ glob("assets/32x32/*.png", async (_err, files) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       i = 0;
     }
+    counts++;
   }
 
   fs.writeFileSync(
@@ -70,4 +99,6 @@ glob("assets/32x32/*.png", async (_err, files) => {
     JSON.stringify(data),
     "utf8"
   );
-});
+
+  console.log(`完成共 ${counts}`);
+})();

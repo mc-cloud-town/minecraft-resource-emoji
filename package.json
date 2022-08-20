@@ -6,10 +6,13 @@
   "author": "猴子 <a102009102009@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node -r dotenv/config ./src",
+    "start": "ts-node ./src",
+    "emojis": "ts-node -r dotenv/config ./src/discordEmojis",
+    "fixEmojis": "ts-node -r dotenv/config ./src/fixDiscordEmojis.ts",
     "svg_to_png": "ts-node ./src/svg_to_png.ts"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "canvas": "^2.9.3",
     "dotenv": "^16.0.1",
     "glob": "^8.0.3",
