@@ -5,6 +5,8 @@ import glob from "glob";
 import twemoji from "twemoji";
 import { createCanvas, loadImage } from "canvas";
 
+import { stringify } from "./utils";
+
 const WIDTH = 1;
 const HEIGHT = 100;
 
@@ -96,7 +98,7 @@ const asyncFiles = (path: string): Promise<string[]> => {
 
   fs.writeFileSync(
     "resources/assets/minecraft/font/default.json",
-    JSON.stringify(data),
+    stringify(data),
     "utf8"
   );
 
