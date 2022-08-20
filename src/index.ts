@@ -7,9 +7,11 @@ import { createCanvas, loadImage } from "canvas";
 
 import { stringify } from "./utils";
 
-// 19 * 76 = 1444
-const WIDTH = 19;
+/* config start */
+const WIDTH = 19; // 19 * 76 = 1444
 const HEIGHT = 76; // 19 * 4
+const ASCIIS = false;
+/* config end */
 
 const canvas = createCanvas(32 * WIDTH, 32 * HEIGHT);
 const ctx = canvas.getContext("2d");
@@ -101,7 +103,7 @@ const asyncFiles = (path: string): Promise<string[]> => {
 
   fs.writeFileSync(
     "resources/assets/minecraft/font/default.json",
-    JSON.stringify(data),
+    (ASCIIS ? stringify : JSON.stringify)(data),
     "utf8"
   );
 
