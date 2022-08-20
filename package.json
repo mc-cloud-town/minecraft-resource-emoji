@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "https://github.com/mc-cloud-town/minecraft-resource-emoji.git",
   "author": "猴子 <a102009102009@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "scripts": {
     "start": "ts-node ./src",
     "emojis": "ts-node -r dotenv/config ./src/discordEmojis",
