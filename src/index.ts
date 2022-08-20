@@ -7,8 +7,9 @@ import { createCanvas, loadImage } from "canvas";
 
 import { stringify } from "./utils";
 
-const WIDTH = 1;
-const HEIGHT = 100;
+// 19 * 76 = 1444
+const WIDTH = 19;
+const HEIGHT = 76; // 19 * 4
 
 const canvas = createCanvas(32 * WIDTH, 32 * HEIGHT);
 const ctx = canvas.getContext("2d");
@@ -60,12 +61,14 @@ const asyncFiles = (path: string): Promise<string[]> => {
       .toString()
       .split(".")
       .map((_) => +_);
-    x ??= 0;
+    x = i - h * WIDTH - 1;
 
     await loadImage(file).then((image) => {
       ctx.drawImage(image, 32 * x, 32 * h, 32, 32);
 
-      chars.push(codePoint);
+      if (x === 0) chars.push(codePoint);
+      else chars[chars.length - 1] += codePoint;
+
       console.log(fileName, codePoint);
     });
 
@@ -83,7 +86,7 @@ const asyncFiles = (path: string): Promise<string[]> => {
         ascent: 8,
         height: 8,
         chars: (() => {
-          while (chars.length < WIDTH * HEIGHT) chars.push("\u0000");
+          while (chars.length < HEIGHT) chars.push("\u0000".repeat(WIDTH));
           return chars;
         })(),
       });
@@ -98,7 +101,7 @@ const asyncFiles = (path: string): Promise<string[]> => {
 
   fs.writeFileSync(
     "resources/assets/minecraft/font/default.json",
-    stringify(data),
+    JSON.stringify(data),
     "utf8"
   );
 
