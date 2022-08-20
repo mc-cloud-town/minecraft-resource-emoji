@@ -8,7 +8,6 @@
   "scripts": {
     "start": "ts-node ./src",
     "emojis": "ts-node -r dotenv/config ./src/discordEmojis",
-    "fixEmojis": "ts-node -r dotenv/config ./src/fixDiscordEmojis.ts",
     "svg_to_png": "ts-node ./src/svg_to_png.ts"
   },
   "dependencies": {

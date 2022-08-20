@@ -9,7 +9,7 @@ import { stringify } from "./utils";
 
 /* config start */
 const WIDTH = 19; // 19 * 76 = 1444
-const HEIGHT = 76; // 19 * 4
+const HEIGHT = 77; // 19 * 4
 const ASCIIS = false;
 /* config end */
 
@@ -46,8 +46,9 @@ const asyncFiles = (path: string): Promise<string[]> => {
   for (const [index, file] of files.entries()) {
     const fileName = basename(file, extname(file));
 
-    const emojiIndex = /emoji-(?<emojiIndex>[0-9]+)/.exec(fileName)?.groups
-      ?.emojiIndex;
+    const emojiIndex = /emoji-(?<emojiIndex>[0-9]+)/
+      .exec(fileName)
+      ?.groups?.emojiIndex?.split("-")[0];
 
     if (fileName.includes("-") && !emojiIndex) continue;
 
