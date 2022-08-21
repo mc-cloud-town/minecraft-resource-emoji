@@ -26,7 +26,7 @@ const emojis: { [id: string]: { str: string; name: string } } = {};
       return aId < bId ? -1 : aId < bId ? 1 : 0;
     }
   )) {
-    console.log(`${name}: ${id}`);
+    console.log(`${name}: ${id}`, snowflakeTime(id));
 
     emojis[id] = {
       str: String.fromCharCode(
