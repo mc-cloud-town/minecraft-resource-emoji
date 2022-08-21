@@ -1,3 +1,9 @@
+export const DISCORD_EPOCH = "1420070400000";
+
+export const snowflakeTime = (id: string) => {
+  return new Date(+((BigInt(id) >> 22n) + BigInt(DISCORD_EPOCH)).toString());
+};
+
 export const escapeNonAsciis = function (text: string) {
   let chars = [];
   let i = 0;

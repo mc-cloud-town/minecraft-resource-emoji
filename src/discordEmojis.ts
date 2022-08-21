@@ -3,7 +3,7 @@ import fs from "fs";
 import axios from "axios";
 import sharp from "sharp";
 
-import { stringify } from "./utils";
+import { snowflakeTime, stringify } from "./utils";
 
 const GUILD_ID = "933290709589577728";
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
@@ -19,7 +19,12 @@ const emojis: { [id: string]: { str: string; name: string } } = {};
   let index = 0;
 
   for (const { id, name } of (<{ id: string; name: string }[]>data).sort(
-    (a, b) => (a.id < b.id ? -1 : a.id < b.id ? 1 : 0)
+    (a, b) => {
+      const aId = snowflakeTime(a.id);
+      const bId = snowflakeTime(b.id);
+
+      return aId < bId ? -1 : aId < bId ? 1 : 0;
+    }
   )) {
     console.log(`${name}: ${id}`);
 
