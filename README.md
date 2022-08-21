@@ -7,8 +7,9 @@
 
 ## Screenshots
 
-![](resources/assets/minecraft/textures/font/emoji-9-978228397501202493.png)
-![](resources/assets/minecraft/textures/font/e50a.png)
+![](.github/emojis.png)
+<br />
+![](.github/discord-emojis.png)
 
 ## custom unicode code
 
