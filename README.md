@@ -7,7 +7,8 @@
 
 ## Screenshots
 
-![](.github/40x37.png)
+![](resources/assets/minecraft/textures/font/e50a.png)
+![](resources/assets/minecraft/textures/font/emoji-9-978228397501202493.png)
 
 ## custom unicode code
 
