@@ -7,9 +7,11 @@
 
 ## Screenshots
 
-![](.github/emojis.png)
+![](https://raw.githubusercontent.com/mc-cloud-town/minecraft-resource-emoji/assets/resources/assets/minecraft/textures/font/discord-emoji.png)
+
 <br />
-![](.github/discord-emojis.png)
+
+![](https://raw.githubusercontent.com/mc-cloud-town/minecraft-resource-emoji/assets/resources/assets/minecraft/textures/font/twitter-emoji.png)
 
 ## custom unicode code
 
