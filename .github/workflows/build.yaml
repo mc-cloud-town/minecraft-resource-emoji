@@ -28,7 +28,7 @@ jobs:
         run: yarn start
 
       - name: build zip
-        run: zip -r resources resources/* || echo "build to zip error"
+        run: zip -rD resources resources/* || echo "build to zip error"
 
       - name: upload Release
         uses: ncipollo/release-action@v1
