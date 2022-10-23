@@ -13,9 +13,16 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
 
 (async () => {
   let summonIds: string[] = [];
+  let old_emoji: typeof emojis = {};
+
   if (fs.existsSync("assets/emoji-checkId.json")) {
     summonIds = JSON.parse(
       fs.readFileSync("assets/emoji-checkId.json", { encoding: "utf8" })
+    );
+  }
+  if (fs.existsSync("assets/emoji-code.json")) {
+    old_emoji = JSON.parse(
+      fs.readFileSync("assets/emoji-code.json", { encoding: "utf8" })
     );
   }
   const data = await axios
@@ -42,7 +49,7 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
     if (
       (summonIds.includes(id) &&
         !fs.existsSync(`assets/discordEmojis/${id}.png`)) ||
-      !emojis?.[id]
+      !old_emoji?.[id]
     ) {
       await writeFile();
 
@@ -69,13 +76,6 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
     await writeFile();
 
     summonIds.push(id);
-  }
-
-  let old_emoji: typeof emojis = {};
-  if (fs.existsSync("assets/emoji-code.json")) {
-    old_emoji = JSON.parse(
-      fs.readFileSync("assets/emoji-code.json", { encoding: "utf8" })
-    );
   }
 
   fs.writeFileSync(
