@@ -7,9 +7,11 @@
 
 ## Screenshots
 
-![](.github/emojis.png)
+![](.github/discord-emoji.png)
+
 <br />
-![](.github/discord-emojis.png)
+
+![](.twitter-emoji.png)
 
 ## custom unicode code
 
