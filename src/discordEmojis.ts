@@ -1,7 +1,6 @@
 import fs from "fs";
 
 import axios from "axios";
-import sharp from "sharp";
 
 import { snowflakeTime, stringify } from "./utils";
 
@@ -11,21 +10,21 @@ const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const emojis: { [id: string]: { str: string; name: string } } = {};
 
 (async () => {
-  const { data } = await axios.get(
-    `https://discord.com/api/v10/guilds/${GUILD_ID}/emojis`,
-    { headers: { Authorization: `Bot ${DISCORD_TOKEN}` } }
-  );
+  let summonIds: string[] = [];
+  if (fs.existsSync("assets/emoji-checkId.json")) {
+    summonIds = JSON.parse(
+      fs.readFileSync("assets/emoji-checkId.json", { encoding: "utf8" })
+    );
+  }
+  const data = await axios
+    .get(`https://discord.com/api/v10/guilds/${GUILD_ID}/emojis`, {
+      headers: { Authorization: `Bot ${DISCORD_TOKEN}` },
+    })
+    .then((res): { id: string; name: string }[] => res.data);
 
   let index = 0;
 
-  for (const { id, name } of (<{ id: string; name: string }[]>data).sort(
-    (a, b) => {
-      const aId = snowflakeTime(a.id);
-      const bId = snowflakeTime(b.id);
-
-      return aId < bId ? -1 : aId < bId ? 1 : 0;
-    }
-  )) {
+  for (const { id, name } of data.filter(({ id }) => !summonIds.includes(id))) {
     console.log(`${name}: ${id}`, snowflakeTime(id));
 
     emojis[id] = {
@@ -44,14 +43,24 @@ const emojis: { [id: string]: { str: string; name: string } } = {};
 
     fs.writeFileSync(path, data);
 
-    sharp(path)
-      .resize(32, 32)
-      .toFile(`assets/discordEmojis-32x32/emoji-${index++}-${id}.png`);
+    summonIds.push(id);
+  }
+
+  let old_emoji: typeof emojis = {};
+  if (fs.existsSync("assets/emoji-code.json")) {
+    old_emoji = JSON.parse(
+      fs.readFileSync("assets/emoji-code.json", { encoding: "utf8" })
+    );
   }
 
   fs.writeFileSync(
     "assets/emoji-code.json",
-    stringify(emojis, null, 2),
+    stringify({ ...old_emoji, ...emojis }, null, 2),
+    "utf8"
+  );
+  fs.writeFileSync(
+    "assets/emoji-checkId.json",
+    stringify(summonIds, null, 2),
     "utf8"
   );
 })();
