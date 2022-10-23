@@ -24,7 +24,7 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
     })
     .then((res): { id: string; name: string }[] => res.data);
 
-  let index = 0;
+  let index = data.filter(({ id }) => summonIds.includes(id)).length;
 
   for (const { id, name } of data) {
     const writeFile = async () => {
@@ -40,16 +40,28 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
     console.log(`${name}: ${id}`, snowflakeTime(id));
 
     if (
-      summonIds.includes(id) &&
-      !fs.existsSync(`assets/discordEmojis/${id}.png`)
+      (summonIds.includes(id) &&
+        !fs.existsSync(`assets/discordEmojis/${id}.png`)) ||
+      !emojis?.[id]
     ) {
       await writeFile();
+
+      emojis[id] = {
+        str: String.fromCharCode(
+          parseInt(
+            `F${summonIds.indexOf(id).toString(16).padStart(3, "0")}`,
+            16
+          )
+        ),
+        name,
+      };
+
       continue;
     }
 
     emojis[id] = {
       str: String.fromCharCode(
-        parseInt(`F${index.toString(16).padStart(3, "0")}`, 16)
+        parseInt(`F${(++index).toString(16).padStart(3, "0")}`, 16)
       ),
       name,
     };
