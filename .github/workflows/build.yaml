@@ -19,16 +19,19 @@ jobs:
       - name: Install
         run: yarn install
 
-      - name: Start
-        run: yarn start
-
-      - name: Start
+      - name: get-emoji
         run: yarn emojis
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
+      - name: build
+        run: yarn start
+
       - name: deploy
         run: |
+          mkdir dist
+          cp -R ./resources ./dist
+
           cd dist
           git config --global user.name "$user_name"
           git config --global user.email "$user_email"
