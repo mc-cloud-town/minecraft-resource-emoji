@@ -9,6 +9,8 @@ const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
 const emojis: { [id: string]: { str: string; name: string } } = {};
 
+fs.mkdirSync("assets/discordEmojis", { recursive: true });
+
 (async () => {
   let summonIds: string[] = [];
   if (fs.existsSync("assets/emoji-checkId.json")) {
