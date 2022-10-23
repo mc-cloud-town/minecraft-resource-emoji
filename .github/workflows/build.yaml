@@ -27,11 +27,17 @@ jobs:
       - name: build
         run: yarn start
 
-      - name: deploy
+      - name: make assets data
         run: |
           mkdir dist
           cp -R ./resources ./dist
 
+          cd assets
+          cp ./emoji-code.json ../resources
+          cp ./emoji-checkId.json ../resources
+
+      - name: deploy
+        run: |
           cd dist
           git config --global user.name "$user_name"
           git config --global user.email "$user_email"
