@@ -26,8 +26,26 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
 
   let index = 0;
 
-  for (const { id, name } of data.filter(({ id }) => !summonIds.includes(id))) {
+  for (const { id, name } of data) {
+    const writeFile = async () => {
+      const { data } = await axios.get(
+        `https://cdn.discordapp.com/emojis/${id}.png`,
+        { responseType: "arraybuffer" }
+      );
+
+      const path = `assets/discordEmojis/${id}.png`;
+
+      fs.writeFileSync(path, data);
+    };
     console.log(`${name}: ${id}`, snowflakeTime(id));
+
+    if (
+      summonIds.includes(id) &&
+      !fs.existsSync(`assets/discordEmojis/${id}.png`)
+    ) {
+      await writeFile();
+      continue;
+    }
 
     emojis[id] = {
       str: String.fromCharCode(
@@ -36,14 +54,7 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
       name,
     };
 
-    const { data } = await axios.get(
-      `https://cdn.discordapp.com/emojis/${id}.png`,
-      { responseType: "arraybuffer" }
-    );
-
-    const path = `assets/discordEmojis/${id}.png`;
-
-    fs.writeFileSync(path, data);
+    await writeFile();
 
     summonIds.push(id);
   }
