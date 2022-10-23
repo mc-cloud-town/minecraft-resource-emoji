@@ -27,14 +27,25 @@ jobs:
       - name: build
         run: yarn start
 
+      - name: build zip
+        run: zip -r resources resources/* || echo "build to zip error"
+
+      - name: upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: latest
+          artifacts: "resources.zip"
+
       - name: make assets data
         run: |
           mkdir dist
           cp -R ./resources ./dist
 
           cd assets
-          cp ./emoji-code.json ../resources
-          cp ./emoji-checkId.json ../resources
+          cp ./emoji-code.json ../dist
+          cp ./emoji-checkId.json ../dist
 
       - name: deploy
         run: |
