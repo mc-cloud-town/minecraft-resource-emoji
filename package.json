@@ -7,6 +7,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "start": "ts-node ./src",
+    "build": "ts-node build.ts",
     "emojis": "ts-node -r dotenv/config ./src/discordEmojis",
     "svg_to_png": "ts-node ./src/svg_to_png.ts"
   },
