@@ -138,7 +138,13 @@
 |`mc_redstone_torch`|`1029788113679175751`|`\uf07f`|``|![](assets/discordEmojis/1029788113679175751.png)|
 |`emoji_120`|`1030066467003183175`|`\uf080`|``|![](assets/discordEmojis/1030066467003183175.png)|
 |`faceholdingbacktears`|`1032282507787382867`|`\uf081`|``|![](assets/discordEmojis/1032282507787382867.png)|
-|`faceholdingbacktears_1`|`1032284334608097310`|`\uf082`|``|![](assets/discordEmojis/1032284334608097310.png)|
+|`CEX`|`1032284334608097310`|`\uf082`|``|![](assets/discordEmojis/1032284334608097310.png)|
 |`emoji_123`|`1032625692682231828`|`\uf083`|``|![](assets/discordEmojis/1032625692682231828.png)|
 |`emoji_124`|`1032625708859674625`|`\uf084`|``|![](assets/discordEmojis/1032625708859674625.png)|
 |`emoji_125`|`1033245562859958363`|`\uf085`|``|![](assets/discordEmojis/1033245562859958363.png)|
+|`emoji_126`|`1038240195193094214`|`\u00f0`|`ð`|![](assets/discordEmojis/1038240195193094214.png)|
+|`emoji_127`|`1040126294903504936`|`\u00f0`|`ð`|![](assets/discordEmojis/1040126294903504936.png)|
+|`emoji_128`|`1041417283089748008`|`\u00f0`|`ð`|![](assets/discordEmojis/1041417283089748008.png)|
+|`emoji_129`|`1041868167569489921`|`\u00f0`|`ð`|![](assets/discordEmojis/1041868167569489921.png)|
+|`kekw`|`1046060246663168000`|`\u00f0`|`ð`|![](assets/discordEmojis/1046060246663168000.png)|
+|`mc_sign`|`1053926306934444072`|`\u00f0`|`ð`|![](assets/discordEmojis/1053926306934444072.png)|
