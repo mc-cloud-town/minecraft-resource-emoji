@@ -29,6 +29,13 @@ jobs:
       - name: build
         run: yarn start
 
+      - name: update
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: assets/*
+          commit-msg: add-emoji
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: build zip
         run: |
           cd resources
