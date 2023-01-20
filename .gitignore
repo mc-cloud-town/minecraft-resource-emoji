@@ -130,3 +130,5 @@ dist
 
 catch-*.json
 store.json
+
+resources/assets/*
