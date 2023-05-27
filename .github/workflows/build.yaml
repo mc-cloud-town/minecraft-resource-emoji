@@ -60,6 +60,7 @@ jobs:
         run: |
           rm -rf ./dist/resources
           cp -R ./resources ./dist
+          mkdir -p ./dist/assets
           cp -R ./assets/discordEmojis ./dict/assets
 
           cd ./dist
