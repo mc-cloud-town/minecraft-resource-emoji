@@ -132,4 +132,3 @@ catch-*.json
 store.json
 
 resources/assets/*
-assets/discordEmojis

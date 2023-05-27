@@ -16,14 +16,14 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
   let old_emoji: typeof emojis = {};
 
   // 讀取過去緩存資料
-  if (fs.existsSync("assets/emoji-checkId.json")) {
+  if (fs.existsSync("dist/emoji-checkId.json")) {
     summonIds = JSON.parse(
-      fs.readFileSync("assets/emoji-checkId.json", { encoding: "utf8" })
+      fs.readFileSync("dist/emoji-checkId.json", { encoding: "utf8" })
     );
   }
-  if (fs.existsSync("assets/emoji-code.json")) {
+  if (fs.existsSync("dist/emoji-code.json")) {
     old_emoji = JSON.parse(
-      fs.readFileSync("assets/emoji-code.json", { encoding: "utf8" })
+      fs.readFileSync("dist/emoji-code.json", { encoding: "utf8" })
     );
   }
 
@@ -95,13 +95,14 @@ fs.mkdirSync("assets/discordEmojis", { recursive: true });
     summonIds.push(id);
   }
 
+  fs.mkdirSync("dist", { recursive: true });
   fs.writeFileSync(
-    "assets/emoji-code.json",
+    "dist/emoji-code.json",
     stringify({ ...old_emoji, ...emojis }, null, 2),
     "utf8"
   );
   fs.writeFileSync(
-    "assets/emoji-checkId.json",
+    "dist/emoji-checkId.json",
     stringify(summonIds, null, 2),
     "utf8"
   );

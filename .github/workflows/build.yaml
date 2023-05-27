@@ -22,7 +22,10 @@ jobs:
         run: yarn install
 
       - name: get-emoji
-        run: yarn emojis
+        run: |
+          git clone --branch assets https://github.com/mc-cloud-town/minecraft-resource-emoji dist
+
+          yarn emojis
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
@@ -55,7 +58,6 @@ jobs:
 
       - name: make assets data
         run: |
-          git clone --branch assets https://github.com/mc-cloud-town/minecraft-resource-emoji dist
           rm -rf ./dist/resources
           cp -R ./resources ./dist
           cp -R ./assets/discordEmojis ./dict/assets
