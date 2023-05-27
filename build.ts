@@ -4,7 +4,7 @@ import { escapeNonAsciis } from "./src/utils";
 
 const term = fs.readFileSync("./README.term.md").toString();
 const emojis: Record<string, { str: string; name: string }> = JSON.parse(
-  fs.readFileSync("./assets/emoji-code.json").toString()
+  fs.readFileSync("./dist/emoji-code.json").toString()
 );
 
 const now_emojis = Object.entries(emojis)

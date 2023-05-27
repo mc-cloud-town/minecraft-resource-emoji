@@ -63,8 +63,6 @@ jobs:
           cp -R ./assets/discordEmojis ./dict/assets
 
           cd ./dist
-          cp ../assets/emoji-code.json .
-          cp ../assets/emoji-checkId.json .
           cp ../README.md .
 
       - name: deploy

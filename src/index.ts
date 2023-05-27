@@ -40,7 +40,7 @@ const getTwitterEmoji = async () => {
 
 const getDiscordEmojis = async () => {
   const emojis: Record<string, { str: string; name: string }> = JSON.parse(
-    fs.readFileSync("assets/emoji-code.json", { encoding: "utf-8" })
+    fs.readFileSync("dist/emoji-code.json", { encoding: "utf-8" })
   );
 
   return await Promise.all(
