@@ -57,8 +57,8 @@ jobs:
         run: |
           git clone --branch assets https://github.com/mc-cloud-town/minecraft-resource-emoji dist
           rm -rf ./dist/resources
-          cp -R ./assets/discordEmojis ./assets
           cp -R ./resources ./dist
+          cp -R ./assets/discordEmojis ./dict/assets
 
           cd ./dist
           cp ../assets/emoji-code.json .
