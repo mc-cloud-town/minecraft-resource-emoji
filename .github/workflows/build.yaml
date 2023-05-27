@@ -27,7 +27,9 @@ jobs:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
 
       - name: build
-        run: yarn start
+        run: |
+          yarn start
+          yarn build
 
       - name: update
         uses: test-room-7/action-update-file@v1
@@ -53,12 +55,13 @@ jobs:
 
       - name: make assets data
         run: |
-          mkdir dist
+          git clone --branch assets https://github.com/mc-cloud-town/minecraft-resource-emoji dist
           cp -R ./resources ./dist
 
-          cd assets
-          cp ./emoji-code.json ../dist
-          cp ./emoji-checkId.json ../dist
+          cd ./dist
+          cp ../assets/emoji-code.json .
+          cp ../assets/emoji-checkId.json .
+          cp ../README.md .
 
       - name: deploy
         run: |
