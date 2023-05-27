@@ -69,7 +69,6 @@ jobs:
           cd dist
           git config --global user.name "$user_name"
           git config --global user.email "$user_email"
-          git remote add origin https://$token@github.com/${{ github.event.repository.full_name }}.git
           git add .
 
           if [ $(git status --porcelain | wc -l) -eq "0" ]; then
