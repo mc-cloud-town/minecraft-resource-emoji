@@ -56,6 +56,7 @@ jobs:
       - name: make assets data
         run: |
           git clone --branch assets https://github.com/mc-cloud-town/minecraft-resource-emoji dist
+          rm -rf ./dist/resources
           cp -R ./resources ./dist
 
           cd ./dist
@@ -68,7 +69,6 @@ jobs:
           cd dist
           git config --global user.name "$user_name"
           git config --global user.email "$user_email"
-          git init
           git add -A
 
           if [ $(git status --porcelain | wc -l) -eq "0" ]; then
