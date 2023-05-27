@@ -15,7 +15,7 @@ const now_emojis = Object.entries(emojis)
       "`" + id + "`",
       "`" + escapeNonAsciis(str) + "`",
       "`" + str + "`",
-      `![](assets/discordEmojis/${id}.png)`,
+      `![](resources/assets/discordEmojis/${id}.png)`,
       "",
     ].join("|");
   })
