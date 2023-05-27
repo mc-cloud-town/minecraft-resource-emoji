@@ -70,13 +70,13 @@ jobs:
           git config --global user.name "$user_name"
           git config --global user.email "$user_email"
           git add .
-
+          git status --porcelain
           if [ $(git status --porcelain | wc -l) -eq "0" ]; then
             echo "  🔴 no updates available"
           else
             echo "  🟢 update"
             git commit -m "${{ github.event.head_commit.message }}"
-            git push -f https://$token@github.com/${{ github.event.repository.full_name }}.git assets
+            git push -f https://_.$token@github.com/${{ github.event.repository.full_name }}.git assets
           fi
         shell: bash
         env:
