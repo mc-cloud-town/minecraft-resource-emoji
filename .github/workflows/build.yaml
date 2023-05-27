@@ -61,7 +61,7 @@ jobs:
           rm -rf ./dist/resources
           cp -R ./resources ./dist
           mkdir -p ./dist/assets
-          cp -R ./assets/discordEmojis ./dict/assets
+          cp -R ./assets/discordEmojis ./dist/assets
 
           cd ./dist
           cp ../README.md .
